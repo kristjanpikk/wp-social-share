@@ -1,0 +1,24 @@
+{
+	"name": "kristjanpikk/wp-social-share",
+	"type": "wordpress-plugin",
+	"license": "MIT",
+    "description": "A WordPress plugin which adds simple social share icons to posts/pages without any bloat",
+    "homepage": "https://github.com/kristjanpikk/wp-social-share/",
+    "authors": [
+		{
+			"name": "Kristjan Pikk",
+			"email": "kristjaq@gmail.com",
+			"homepage": "https://github.com/kristjanpikk"
+		}
+	],
+	"keywords": [
+		"wordpress"
+	],
+	"support": {
+		"issues": "https://github.com/kristjanpikk/wp-social-share/issues"
+	},
+	"require": {
+		"php": ">=5.5.0",
+		"composer/installers": "~1.0"
+	}
+}

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="36px" height="36px" viewBox="0 0 36 36" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Content" transform="translate(-1236.000000, -1292.000000)">
+            <g id="facebook" transform="translate(1236.000000, 1292.000000)">
+                <circle id="Oval" fill="#3B5998" cx="18" cy="18" r="18"></circle>
+                <path d="M23.3186195,17.6381947 L20.1295929,17.6381947 L20.1295929,29.3213097 L15.2979469,29.3213097 L15.2979469,17.6381947 L13,17.6381947 L13,13.5322832 L15.2979469,13.5322832 L15.2979469,10.875292 C15.2979469,8.97525664 16.2004956,6 20.1726018,6 L23.7515752,6.01497345 L23.7515752,10.0004602 L21.1547965,10.0004602 C20.7288496,10.0004602 20.1299115,10.2132743 20.1299115,11.119646 L20.1299115,13.5361062 L23.7407434,13.5361062 L23.3186195,17.6381947 Z" id="Shape" fill="#FFFFFF"></path>
+            </g>
+        </g>
+    </g>
+</svg>

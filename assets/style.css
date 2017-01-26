@@ -1,0 +1,69 @@
+.c-share {
+  display: inline-block;
+  width: 100%;
+}
+
+.c-share__label {
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.c-share__facebook,
+.c-share__twitter,
+.c-share__google {
+    display: inline-block;
+    float: left;
+}
+
+.c-share__facebook,
+.c-share__twitter {
+  margin-right: 15px;
+}
+
+.c-share__facebook a {
+  background-image: url(facebook.png);
+  background-image: 
+    -webkit-linear-gradient(transparent, transparent),
+    url(facebook.svg);
+  background-image: 
+    -o-linear-gradient(transparent, transparent),
+    url(facebook.svg);
+  background-image: 
+    linear-gradient(transparent, transparent),
+    url(facebook.svg);
+  display: inline-block;
+  width: 36px;
+  height: 36px;
+}
+
+.c-share__twitter a {
+  background-image: url(twitter.png);
+  background-image: 
+    -webkit-linear-gradient(transparent, transparent),
+    url(twitter.svg);
+  background-image: 
+    -o-linear-gradient(transparent, transparent),
+    url(twitter.svg);
+  background-image: 
+    linear-gradient(transparent, transparent),
+    url(twitter.svg);
+  display: inline-block;
+  width: 36px;
+  height: 36px;
+}
+
+.c-share__google a {
+  background-image: url(google.png);
+  background-image: 
+    -webkit-linear-gradient(transparent, transparent),
+    url(google.svg);
+  background-image: 
+    -o-linear-gradient(transparent, transparent),
+    url(google.svg);
+  background-image: 
+    linear-gradient(transparent, transparent),
+    url(google.svg);
+  display: inline-block;
+  width: 36px;
+  height: 36px;
+}
