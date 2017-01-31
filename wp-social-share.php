@@ -63,29 +63,49 @@ class WpSocialShare {
 	public function social_share_settings() {
 		add_settings_section( 'social_share_config_section', '', null, 'social-share' );
 
-		add_settings_field( 'social-share-before-posts', 'Show share buttons before posts?', array( $this, 'social_share_before_posts' ), 'social-share', 'social_share_config_section' );
-		add_settings_field( 'social-share-after-posts', 'Show share buttons after posts?', array( $this, 'social_share_after_posts' ), 'social-share', 'social_share_config_section' );
+		add_settings_field( 'social-share-before-content', 'Show share buttons before content?', array( $this, 'social_share_before_content' ), 'social-share', 'social_share_config_section' );
+		add_settings_field( 'social-share-after-content', 'Show share buttons after content?', array( $this, 'social_share_after_content' ), 'social-share', 'social_share_config_section' );
+		add_settings_field( 'social-share-only-posts', 'Show share buttons only on single "Posts" pages?', array( $this, 'social_share_only_posts' ), 'social-share', 'social_share_config_section' );
+		add_settings_field( 'social-share-before-buttons', 'Label before buttons', array( $this, 'social_share_before_buttons' ), 'social-share', 'social_share_config_section' );
 
-		register_setting( 'social_share_config_section', 'social-share-before-posts' );
-		register_setting( 'social_share_config_section', 'social-share-after-posts' );
+		register_setting( 'social_share_config_section', 'social-share-before-content' );
+		register_setting( 'social_share_config_section', 'social-share-after-content' );
+		register_setting( 'social_share_config_section', 'social-share-only-posts' );
+		register_setting( 'social_share_config_section', 'social-share-before-buttons' );
 	}
 
 	/**
-	 * Checkbox function for showing before posts
+	 * Checkbox function for showing before content
 	 */
-	public function social_share_before_posts() {
+	public function social_share_before_content() {
 	?>
-		<input type="checkbox" name="social-share-before-posts" value="1" <?php checked( 1, get_option( 'social-share-before-posts' ), true ); ?> /> Check for Yes
+		<input type="checkbox" name="social-share-before-content" value="1" <?php checked( 1, get_option( 'social-share-before-content' ), true ); ?>> Check for Yes
 	<?php
 	}
 
 	/**
-	 * Checkbox function for showing after posts
+	 * Checkbox function for showing after content
 	 */
-	public function social_share_after_posts() {
+	public function social_share_after_content() {
 	?>
-		<input type="checkbox" name="social-share-after-posts" value="1" <?php checked( 1, get_option( 'social-share-after-posts' ), true ); ?> /> Check for Yes
+		<input type="checkbox" name="social-share-after-content" value="1" <?php checked( 1, get_option( 'social-share-after-content' ), true ); ?>> Check for Yes
 	<?php
+	}
+
+	/**
+	 * Checkbox function for only on single post pages
+	 */
+	public function social_share_only_posts() {
+	?>
+		<input type="checkbox" name="social-share-only-posts" value="1" <?php checked( 1, get_option( 'social-share-only-posts' ), true ); ?>> Check for Yes
+	<?php
+	}
+
+	/**
+	 * Label before buttons function
+	 */
+	public function social_share_before_buttons() {
+		echo '<input type="text" id="social-share-before-buttons" name="social-share-before-buttons" value="' . get_option( 'social-share-before-buttons' ) . '">';
 	}
 
 	/**
@@ -140,21 +160,28 @@ class WpSocialShare {
 		global $post;
 		$post_id = get_the_ID();
 
-		if ( get_option( 'social-share-before-posts' ) == 1 && ! get_post_meta( $post_id, 'disable_sharing' ) ) {
+		if ( get_option( 'social-share-before-content' ) == 1 && ! get_post_meta( $post_id, 'disable_sharing' ) ) {
 
-			wp_enqueue_style( 'social-share-styles', plugin_dir_url( __FILE__ ) . '/assets/style.min.css' );
+			wp_enqueue_style( 'social-share-styles', plugin_dir_url( __FILE__ ) . '/assets/style.min.css', false, filemtime( plugin_dir_path( __FILE__ ) . '/assets/style.min.css' ) );
 
 			$url = get_permalink( $post->ID );
 			$url = esc_url( $url );
+			$label = ( get_option( 'social-share-before-buttons' ) ) ? "<div class='c-share__label'>" . get_option( 'social-share-before-buttons' ) . "</div>" : '';
 
 			$html = "
-			<div class='c-share'><div class='c-share__label'>Share on: </div>
+			<div class='c-share'>
+			" . $label . "
 			<div class='c-share__facebook'><a target='_blank' href='http://www.facebook.com/sharer.php?u=" . $url . "'></a></div>
 			<div class='c-share__twitter'><a target='_blank' href='https://twitter.com/home?status=" . $url . "'></a></div>
 			<div class='c-share__google'><a target='_blank' href='https://plus.google.com/share?url=" . $url . "'></a></div>
 			</div>";
 
-			return $content = $html . $content ;
+			if ( get_option( 'social-share-only-posts' ) == 1 && get_post_type() == 'post' ) {
+				if ( get_post_type() !== 'post' ) {
+					return $content;
+				}
+				return $content = $html . $content;
+			}
 		}
 		return $content;
 	}
@@ -167,22 +194,29 @@ class WpSocialShare {
 	public function add_social_share_after( $content ) {
 		global $post;
 		$post_id = get_the_ID();
-		
-		if ( get_option( 'social-share-after-posts' ) == 1 && ! get_post_meta( $post_id, 'disable_sharing' ) ) {
 
-			wp_enqueue_style( 'social-share-styles', plugin_dir_url( __FILE__ ) . '/assets/style.min.css' );
+		if ( get_option( 'social-share-after-content' ) == 1 && ! get_post_meta( $post_id, 'disable_sharing' ) ) {
+
+			wp_enqueue_style( 'social-share-styles', plugin_dir_url( __FILE__ ) . '/assets/style.min.css', false, filemtime( plugin_dir_path( __FILE__ ) . '/assets/style.min.css' ) );
 
 			$url = get_permalink( $post->ID );
 			$url = esc_url( $url );
+			$label = ( get_option( 'social-share-before-buttons' ) ) ? "<div class='c-share__label'>" . get_option( 'social-share-before-buttons' ) . "</div>" : '';
 
 			$html = "
-			<div class='c-share'><div class='c-share__label'>Share on: </div>
+			<div class='c-share'>
+			" . $label . "
 			<div class='c-share__facebook'><a target='_blank' href='http://www.facebook.com/sharer.php?u=" . $url . "'></a></div>
 			<div class='c-share__twitter'><a target='_blank' href='https://twitter.com/home?status=" . $url . "'></a></div>
 			<div class='c-share__google'><a target='_blank' href='https://plus.google.com/share?url=" . $url . "'></a></div>
 			</div>";
 
-			return $content = $content . $html;
+			if ( get_option( 'social-share-only-posts' ) == 1 && get_post_type() == 'post' ) {
+				if ( get_post_type() !== 'post' ) {
+					return $content;
+				}
+				return $content = $content . $html;
+			}
 		}
 		return $content;
 	}
