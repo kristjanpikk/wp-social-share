@@ -162,7 +162,7 @@ class WpSocialShare {
 
 		if ( get_option( 'social-share-before-content' ) == 1 && ! get_post_meta( $post_id, 'disable_sharing' ) ) {
 
-			wp_enqueue_style( 'social-share-styles', plugin_dir_url( __FILE__ ) . '/assets/style.min.css', false, filemtime( plugin_dir_path( __FILE__ ) . '/assets/style.min.css' ) );
+			wp_enqueue_style( 'social-share-styles', plugin_dir_url( __FILE__ ) . 'assets/style.min.css', false, filemtime( plugin_dir_path( __FILE__ ) . 'assets/style.min.css' ) );
 
 			$url = get_permalink( $post->ID );
 			$url = esc_url( $url );
@@ -197,7 +197,7 @@ class WpSocialShare {
 
 		if ( get_option( 'social-share-after-content' ) == 1 && ! get_post_meta( $post_id, 'disable_sharing' ) ) {
 
-			wp_enqueue_style( 'social-share-styles', plugin_dir_url( __FILE__ ) . '/assets/style.min.css', false, filemtime( plugin_dir_path( __FILE__ ) . '/assets/style.min.css' ) );
+			wp_enqueue_style( 'social-share-styles', plugin_dir_url( __FILE__ ) . 'assets/style.min.css', false, filemtime( plugin_dir_path( __FILE__ ) . 'assets/style.min.css' ) );
 
 			$url = get_permalink( $post->ID );
 			$url = esc_url( $url );
